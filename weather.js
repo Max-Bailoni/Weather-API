@@ -15,7 +15,7 @@ document.getElementById('goBtn').addEventListener('click', async () => {
         const fullName = `${locData[0].LocalizedName}, ${locData[0].Country.LocalizedName};`;
         fetchWeather(cityKey, fullName);
     } catch (error) {
-        document.getElementById('result').innerHTML = "Error fetching city data: ";
+        document.getElementById('result').innerHTML = "Error fetching city data";
     }
 });
 
