@@ -1,8 +1,27 @@
+document.getElementById('goBtn').addEventListener('click', async () => {
+    const cityName = document.getElementById('cityInput').value.trim();
+    if(!cityName) return;
 
+    const locUrl = `goForCity.php?cityName=${encodeURIComponent(cityName)}`;
+
+    try {
+        const locRes = await fetch(locUrl);
+        const locData = await locRes.json();
+        if(locData.length === 0) {
+            document.getElementById('result').innerHTML = 'City not found!';
+            return;
+        }
+        const cityKey = locData[0].Key;
+        const fullName = `${locData[0].LocalizedName}, ${locData[0].Country.LocalizedName};`;
+        fetchWeather(cityKey, fullName);
+    } catch (error) {
+        document.getElementById('result').innerHTML = "Error fetching city data: ";
+    }
+});
 
 async function fetchWeather(cityKey, cityName) {
     try {
-         let url = `weather.php?cityKey=${cityKey}`; 
+        let url = `weather.php?cityKey=${cityKey}`; 
         const response = await fetch(url);
         const data = await response.json();
         console.log(data);
