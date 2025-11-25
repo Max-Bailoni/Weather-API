@@ -45,5 +45,25 @@ async function fetchWeather(cityKey, cityName) {
         console.error('Error fetching weather data: ' + error);
     }
 }
+
+async function fiveForecast(cityKey, cityName) {
+    let url = `fiveDays.php?cityKey=${cityKey}`;
+    const response = await fetch(url);
+    const data = await response.json(); 
+    console.log(data);
+
+    document.getElementById('result').innerHTML +=  `<h1>Five days forecast of: ${cityName}`;
+    let html = '';
+    data.DailyForecasts.forEach(day => {
+        html +=`<div>
+                    <p>${new Date(day.Date).toLocaleDateString()}</p>
+                    <p>Min: ${day.Temperature.Minimum.Value}F</p><p>Max: ${day.Temperature.Maximum.Value}F</p>
+                    <p>Sunrise: ${new Date(day.Sun.Rise).toLocaleTimeString()}</p>
+                </div>`;
+    });
+    document.getElementById('result').innerHTML += html;
+}
+
 fetchWeather("328328", "London");
+fiveForecast("328328", "London");
 
