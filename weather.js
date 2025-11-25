@@ -14,12 +14,14 @@ document.getElementById('goBtn').addEventListener('click', async () => {
         const cityKey = locData[0].Key;
         const fullName = `${locData[0].LocalizedName}, ${locData[0].Country.LocalizedName};`;
         fetchWeather(cityKey, fullName);
+        fiveForecast(cityKey, fullName);
     } catch (error) {
         document.getElementById('result').innerHTML = "Error fetching city data";
     }
 });
 
 async function fetchWeather(cityKey, cityName) {
+
     try {
         let url = `weather.php?cityKey=${cityKey}`; 
         const response = await fetch(url);
@@ -53,7 +55,7 @@ async function fiveForecast(cityKey, cityName) {
     console.log(data);
 
     document.getElementById('result').innerHTML +=  `<h1>Five days forecast of: ${cityName}`;
-    let html = '';
+    let html = ``;
     data.DailyForecasts.forEach(day => {
         html +=`<div>
                     <p>${new Date(day.Date).toLocaleDateString()}</p>

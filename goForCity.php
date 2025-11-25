@@ -1,5 +1,5 @@
 <?php
-$apiKey = ... ;
+$apiKey = ;
 
 if (!isset($_GET['cityName'])) {
     echo json_encode([]);
